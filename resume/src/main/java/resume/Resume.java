@@ -19,11 +19,12 @@ public class Resume {
 
     private String lastName;
 
+    private int id;
+
     public String getFirstName() {
         return firstName;
     }
 
-    @XmlElement
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -32,26 +33,26 @@ public class Resume {
         return lastName;
     }
 
-    @XmlElement
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public Resume(String ln, String fn) {
-        firstName = fn;
-        lastName = ln;
-    }
-
     public Resume() {
-        firstName = "unknownxcd";
-        lastName = "unknowcdcn";
+        id = -1;
+        firstName = "unknown";
+        lastName = "unknown";
     }
 
-    public Resume(int i) {
-        firstName = "unknowcdn" + i;
-        lastName = "unknzzown" + i;
+    public Resume(int i, String name, String lastName) {
+        this.firstName = name + i;
+        this.lastName = lastName + i;
     }
-
-
-
 }

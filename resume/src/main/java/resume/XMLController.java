@@ -3,13 +3,11 @@ package resume; /**
  */
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/resume")
@@ -17,33 +15,65 @@ public class XMLController {
 
     static BddCV resumes;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody BddCV getResumeInXML() {
         if(resumes == null)
             resumes = new BddCV();
 
             resumes.allCV.add(new Resume());
+            resumes.allCV.add(new Resume());
 
         return resumes;
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody BddCV getAllResumes(){
+        return resumes;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody BddCV getCVById(@PathVariable String path) {
+
+        String[] tab = path.split("/");
+        List<Integer> l =  new ArrayList<Integer>();
+
+        for(String token : tab) {
+            int i = Integer.parseInt(token);
+            l.add(i);
+        }
+
+        return resumes.getById(l);
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public @ResponseBody Message deleteCV(@PathVariable String path) {
+
+        String[] tab = path.split("/");
+        List<Integer> l =  new ArrayList<Integer>();
+
+        for(String token : tab) {
+            int i = Integer.parseInt(token);
+            l.add(i);
+        }
+
+        return new Message("CV supprimer");
+    }
+
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody BddCV getResumeInXMLWithPost() {
-        if(resumes == null)
-            resumes = new BddCV();
+    public @ResponseBody Message logs(@RequestBody Resume r) {
 
-        resumes.allCV.add(new Resume(6));
+        resumes.allCV.add(r);
 
-        return resumes;
+        return new Message("CV ajouter");
     }
 
+    /*
     @RequestMapping(value="/something/{id}" ,method = RequestMethod.GET)
     public @ResponseBody Resume getResumeInXML(@PathVariable int id) {
 
         return resumes.allCV.get(id);
     }
-
-
-
+*/
 }
