@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 
-@XmlRootElement(name = "competence")
+@XmlRootElement
 public class Competence {
 
     private String name;

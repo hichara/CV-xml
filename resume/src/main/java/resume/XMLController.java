@@ -14,38 +14,55 @@ import java.util.Map;
 public class XMLController {
 
     static BddCV resumes;
+    static int id;
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody BddCV getResumeInXML() {
         if(resumes == null)
             resumes = new BddCV();
 
-            resumes.allCV.add(new Resume());
-            resumes.allCV.add(new Resume());
+            resumes.allCV.add(new Resume(id, "unknown", "unknown"));
+            id++;
 
         return resumes;
     }
 
+    /*
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public @ResponseBody BddCV getAllResumes(){
         return resumes;
-    }
+    }*/
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody BddCV getCVById(@PathVariable String path) {
+    public @ResponseBody BddCV getCVById(@PathVariable String id) {
 
-        String[] tab = path.split("/");
+        String[] tab = id.split("-");
         List<Integer> l =  new ArrayList<Integer>();
 
         for(String token : tab) {
-            int i = Integer.parseInt(token);
-            l.add(i);
+            try {
+                int i = Integer.parseInt(token);
+                l.add(i);
+            } catch (Exception e) {
+
+            }
         }
 
-        return resumes.getById(l);
+       return resumes.getById(l);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody Message logs(@RequestBody Resume r) {
 
+        resumes.allCV.add(r);
+
+        return new Message("CV ajouter");
+    }
+
+    // Implementer updadate
+    // Implementter creation
+
+/*
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody Message deleteCV(@PathVariable String path) {
 
@@ -59,21 +76,7 @@ public class XMLController {
 
         return new Message("CV supprimer");
     }
-
-
-    @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Message logs(@RequestBody Resume r) {
-
-        resumes.allCV.add(r);
-
-        return new Message("CV ajouter");
-    }
-
-    /*
-    @RequestMapping(value="/something/{id}" ,method = RequestMethod.GET)
-    public @ResponseBody Resume getResumeInXML(@PathVariable int id) {
-
-        return resumes.allCV.get(id);
-    }
 */
+
+
 }

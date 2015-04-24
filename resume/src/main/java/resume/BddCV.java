@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by hichara on 16/04/15.
  */
-@XmlRootElement(name = "Cvs")
+@XmlRootElement
 public class BddCV {
 
     List<Resume> allCV;
@@ -40,7 +40,8 @@ public class BddCV {
         BddCV cvs = new BddCV();
 
         for(int i = 0; i < l.size(); i++) {
-          cvs.allCV.add(this.allCV.get(i));
+            Resume r = getById(i);
+            cvs.allCV.add(r);
         }
 
         return cvs;
