@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 
-@XmlRootElement(name = "langue")
+@XmlRootElement(name = "language")
 public class Langue {
 
     private String name;
@@ -15,7 +15,8 @@ public class Langue {
     private String niveau;
 
     public Langue() {
-
+        name = "???";
+        niveau = "???";
     }
 
     public Langue(String name, String niveau) {

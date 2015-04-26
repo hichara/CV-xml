@@ -1,6 +1,7 @@
 package resume;
 
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class BddCV {
     List<Resume> allCV;
 
     public BddCV() {
-        allCV = new ArrayList<>();
+        allCV = new ArrayList<Resume>();
     }
 
     public List<Resume> getAllCV() {

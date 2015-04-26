@@ -13,50 +13,42 @@ import java.util.Map;
 @RequestMapping("/resume")
 public class XMLController {
 
-    static BddCV resumes;
-    static int id;
+    static BddCV resumes = new BddCV();
+    static int id = 1;
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody BddCV getResumeInXML() {
-        if(resumes == null)
-            resumes = new BddCV();
-
-            resumes.allCV.add(new Resume(id, "unknown", "unknown"));
-            id++;
-
         return resumes;
     }
 
-    /*
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public @ResponseBody BddCV getAllResumes(){
-        return resumes;
-    }*/
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody BddCV getCVById(@PathVariable String id) {
+    public @ResponseBody Resume getCVById(@PathVariable String id) {
 
-        String[] tab = id.split("-");
-        List<Integer> l =  new ArrayList<Integer>();
+        int i = Integer.parseInt(id);
+        Resume r = resumes.getById(i);
 
-        for(String token : tab) {
-            try {
-                int i = Integer.parseInt(token);
-                l.add(i);
-            } catch (Exception e) {
+        if(r == null)
+            r = new Resume();
 
-            }
-        }
+        r.getFormations().add(new Formation("cdc", "edd"));
+        r.getFormations().add(new Formation("caadc", "edd"));
+        r.getFormations().add(new Formation("cdc", "e948"));
 
-       return resumes.getById(l);
+        return r;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody Message logs(@RequestBody Resume r) {
 
-        resumes.allCV.add(r);
+        Resume rr = new Resume(r);
 
-        return new Message("CV ajouter");
+        id = id + 1;
+        rr.setId(id);
+
+        resumes.allCV.add(rr);
+
+        return new Message("CV ajouter. ID : " + id);
     }
 
     // Implementer updadate
