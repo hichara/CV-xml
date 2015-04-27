@@ -15,8 +15,8 @@ public class Langue {
     private String niveau;
 
     public Langue() {
-        name = "???";
-        niveau = "???";
+        name = "not specified";
+        niveau = "not specified";
     }
 
     public Langue(String name, String niveau) {

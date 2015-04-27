@@ -31,10 +31,6 @@ public class XMLController {
         if(r == null)
             r = new Resume();
 
-        r.getFormations().add(new Formation("cdc", "edd"));
-        r.getFormations().add(new Formation("caadc", "edd"));
-        r.getFormations().add(new Formation("cdc", "e948"));
-
         return r;
     }
 

@@ -15,8 +15,8 @@ public class Formation {
     private String description;
 
     public Formation() {
-        this.titre = "?????????";
-        this.description = "?????????";
+        this.titre = "not specified";
+        this.description = "not specified";
     }
 
     public Formation(String titre, String description) {
@@ -26,11 +26,11 @@ public class Formation {
         this.description = description;
 
         if(description == "") {
-            this.description = "???????";
+            this.description = "not specified";
         }
 
         if(titre == "") {
-            this.titre = "???????";
+            this.titre = "not specified";
         }
     }
 
